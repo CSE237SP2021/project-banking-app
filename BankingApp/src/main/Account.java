@@ -15,7 +15,7 @@ public class Account {
      * @param depositAmount
      * @return the new account balance
      */
-    BigDecimal deposit(BigDecimal depositAmount) {
+    public BigDecimal deposit(BigDecimal depositAmount) {
         this.balance.add(depositAmount);
         return this.balance;
     }
@@ -26,12 +26,17 @@ public class Account {
      * @param withdrawAmount
      * @return the new account balance
      */
-    BigDecimal withdraw(BigDecimal withdrawAmount) {
+    public BigDecimal withdraw(BigDecimal withdrawAmount) {
         this.balance.subtract(withdrawAmount);
         return this.balance;
     }
     
-    BigDecimal getBalance() {
+    /**
+     * Gets value of balance
+     * 
+     * @return value of balance
+     */
+    public BigDecimal getBalance() {
     	return this.balance;
     }
 }
