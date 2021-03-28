@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class AccountsMenu {
 	
+	//All available commands used in start function;
 	private final String DEPOSIT = "deposit";
 	private final String WITHDRAW = "withdraw";
 	private final String EXIT = "exit";
@@ -23,8 +24,11 @@ public class AccountsMenu {
 	 * @param scanner (to make unit testing easier)
 	 */
 	public void start(Scanner scanner) {
+		
 		System.out.println("Welcome, enter commands to interact with your account");
-		mainLoop: while(scanner.hasNext()) {
+		
+		//Main loop that handles all user command inputs
+		mainLoop: while(true) {
 			String userInput = scanner.nextLine().toLowerCase();
 			
 			switch (userInput) {
@@ -46,11 +50,18 @@ public class AccountsMenu {
 		}
 		
 	}
-	
+	/**
+	 * Handles the balance command
+	 */
 	private void balanceHandler() {
-		System.out.println("Your account balance is: " + this.account.getBalance());
+		System.out.println("Your account balance is: $" + this.account.getBalance());
 	}
 
+	/**
+	 * Handles depositing money into account instance variable
+	 * 
+	 * @param scanner
+	 */
 	private void depositHandler(Scanner scanner) {
 		System.out.println("Enter amount to deposit:");
 		
@@ -60,6 +71,11 @@ public class AccountsMenu {
 		System.out.println("Your account now has a balance of: $" + newAccountBalance);
 	}
 	
+	/**
+	 * Handles withdrawing money from account instance variable
+	 * 
+	 * @param scanner
+	 */
 	private void withdrawHandler(Scanner scanner) {
 		System.out.println("Enter amount to withdraw:");
 		
