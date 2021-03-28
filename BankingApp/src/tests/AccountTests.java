@@ -19,9 +19,29 @@ class AccountTests {
 	}
 	
 	@Test
+	void testGetBalance() {
+		assertTrue(account.getBalance().compareTo(new BigDecimal(0)) == 0);
+	}
+	
+	@Test
 	void testDeposit() {
 		BigDecimal depositAmount = new BigDecimal("12.34");
+		
+		account.deposit(depositAmount);
+		
 		assertTrue(depositAmount.compareTo(account.getBalance()) == 0);
+	}
+	
+	@Test
+	void testWithdraw() {
+		BigDecimal depositAmount = new BigDecimal("12.34");
+		BigDecimal withdrawAmount = new BigDecimal("12.00");
+		BigDecimal endAmount = depositAmount.subtract(withdrawAmount);
+		
+		account.deposit(depositAmount);
+		account.withdraw(withdrawAmount);
+		
+		assertTrue(account.getBalance().compareTo(endAmount) == 0);
 	}
 
 }
