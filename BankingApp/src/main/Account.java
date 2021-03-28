@@ -2,8 +2,8 @@ package main;
 import java.math.BigDecimal;
 
 public class Account {
-    BigDecimal balance = new BigDecimal(0);
-    long accountNumber = 0;
+    private BigDecimal balance = new BigDecimal(0);
+    private long accountNumber = 0;
 
     public Account() {
         // randomly generate accountNumber here later
@@ -29,5 +29,9 @@ public class Account {
     BigDecimal withdraw(BigDecimal withdrawAmount) {
         this.balance.subtract(withdrawAmount);
         return this.balance;
+    }
+    
+    BigDecimal getBalance() {
+    	return this.balance;
     }
 }
