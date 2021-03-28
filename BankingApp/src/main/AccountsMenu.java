@@ -29,7 +29,7 @@ public class AccountsMenu {
 		
 		//Main loop that handles all user command inputs
 		mainLoop: while(true) {
-			String userInput = scanner.nextLine().toLowerCase();
+			String userInput = scanner.next().toLowerCase();
 			
 			switch (userInput) {
 				case DEPOSIT:
