@@ -9,7 +9,6 @@ public class Main {
 		//initialize test person
 		Person testPerson = new Person("Default", "User");
 		testPerson.addAccount();
-		
 		AccountsMenu accountsMenu = new AccountsMenu(testPerson.getAccounts().get(0));
 		Scanner scanner = new Scanner(System.in);
 		
