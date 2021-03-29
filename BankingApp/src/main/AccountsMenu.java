@@ -25,7 +25,7 @@ public class AccountsMenu {
 	 */
 	public void start(Scanner scanner) {
 		
-		System.out.println("Welcome, enter commands to interact with your account");
+		System.out.println("Welcome, enter commands to interact with your account, or type help");
 		
 		//Main loop that handles all user command inputs
 		mainLoop: while(true) {
@@ -45,7 +45,6 @@ public class AccountsMenu {
 					System.out.println("Thank you for banking with us, goodbye");
 					break mainLoop; //https://stackoverflow.com/questions/22823395/java-how-can-i-break-a-while-loop-under-a-switch-statement
 				default:
-					System.out.println("Error bad command: "+ userInput);
 					System.out.println("Valid commands are: " + DEPOSIT + ", " + WITHDRAW + ", " + BALANCE + ", " + EXIT);
 			}
 		}
