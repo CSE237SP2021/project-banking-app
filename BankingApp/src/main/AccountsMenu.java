@@ -65,7 +65,7 @@ public class AccountsMenu {
 	private void depositHandler(Scanner scanner) {
 		System.out.println("Enter amount to deposit:");
 		
-		BigDecimal depositAmount = scanner.nextBigDecimal();
+		BigDecimal depositAmount = this.inputBigDecimal(scanner);
 		BigDecimal newAccountBalance = this.account.deposit(depositAmount);
 		
 		System.out.println("Your account now has a balance of: $" + newAccountBalance);
@@ -79,9 +79,24 @@ public class AccountsMenu {
 	private void withdrawHandler(Scanner scanner) {
 		System.out.println("Enter amount to withdraw:");
 		
-		BigDecimal withdrawAmount = scanner.nextBigDecimal();
+		BigDecimal withdrawAmount = this.inputBigDecimal(scanner);
 		BigDecimal newAccountBalance = this.account.withdraw(withdrawAmount);
 		
 		System.out.println("Your account now has a balance of: $" + newAccountBalance);
 	}
+	
+	/**
+	 * Gets input until a valid BigDecimal is input by the user
+	 * @param scanner
+	 */
+	private BigDecimal inputBigDecimal(Scanner scanner) {
+		String inputValue = new String();
+		
+		while (!scanner.hasNextBigDecimal()) {
+			inputValue = scanner.next();
+			System.out.println("Please enter a valid decimal value.");	
+		}
+		return scanner.nextBigDecimal();
+	}
+	
 }
