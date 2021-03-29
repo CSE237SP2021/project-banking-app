@@ -88,6 +88,7 @@ public class AccountsMenu {
 	/**
 	 * Gets input until a valid BigDecimal is input by the user
 	 * @param scanner
+	 * @return valid BigDecimal input
 	 */
 	private BigDecimal inputBigDecimal(Scanner scanner) {
 		String inputValue = new String();
