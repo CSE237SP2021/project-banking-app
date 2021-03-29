@@ -46,6 +46,7 @@ public class AccountsMenu {
 					break mainLoop; //https://stackoverflow.com/questions/22823395/java-how-can-i-break-a-while-loop-under-a-switch-statement
 				default:
 					System.out.println("Error bad command: "+ userInput);
+					System.out.println("Valid commands are: " + DEPOSIT + ", " + WITHDRAW + ", " + BALANCE + ", " + EXIT);
 			}
 		}
 		
