@@ -33,3 +33,9 @@
 ## What commands are needed to compile and run your code from the command line?
 
 -   To run our program first switch to the development branch in your command line. Then run the run.sh script by typing in "./run.sh". After you should be greated with a welcome message and you may begin interacting with your bank account using the commands described above.
+-   NOTE: There is a known issue with the bash script. If you get the error: "/bin/bash^M: bad interpreter: No such file or directory" please run the following commands instead:
+    -   cd BankingApp/src/main
+    -   javac -cp ../ Main.java
+    -   cd ..
+    -   java main.Main
+-   The problem appears to be due to the difference in Linux and Windows line breaks. The script was written on a Mac and the error occurs on Windows. We hope to have this fixed by the next iteration.
