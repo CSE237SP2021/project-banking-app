@@ -31,5 +31,11 @@ public class AuthTests {
 		
 		File userDirectory = new File(basePath + id);
 		assertTrue(userDirectory.isDirectory());
+		
+		//teardown
+		for(File file: userDirectory.listFiles()) {
+			file.delete();
+		}
+		userDirectory.delete();
 	}
 }
