@@ -2,6 +2,7 @@ package main;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Auth {
 	final String BASE_PATH = "./data/";
@@ -11,11 +12,11 @@ public class Auth {
 	
 	/**
 	 * Creates a directory containing .txt files to represent a Person instance.
-	 * @param id
+	 * @param id -- user ID used to login. should be unique.
 	 * @param password
 	 * @param firstName
 	 * @param lastName
-	 * @return success
+	 * @return true if directory and all files were created with correct contents. False otherwise
 	 */
 	public boolean register(String id, String password, String firstName, String lastName) {
 		boolean isSuccessful = false;
@@ -50,6 +51,36 @@ public class Auth {
 			e.printStackTrace();
 		}
 			
+		
+		return isSuccessful;
+	}
+	
+	/**
+	 * Called when a user attempts to login. Returns true if credentials are correct, false otherwise.
+	 * @param idGuess - userId provided by the user
+	 * @param passwordGuess - password provided by the user
+	 * @return
+	 */
+	public boolean validateLogin(String idGuess, String passwordGuess) {
+		boolean isSuccessful = false;
+		
+		String userDirectoryPath = BASE_PATH + idGuess;
+		File userDirectory = new File(userDirectoryPath);
+		
+		if (userDirectory.isDirectory()) {
+			try {
+				Scanner passwordScanner = new Scanner(new File(userDirectoryPath + PASSWORD_NAME));
+				while (passwordScanner.hasNextLine()) {
+					String password = passwordScanner.nextLine();
+
+					if (password.equals(passwordGuess)) {
+						isSuccessful = true;
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return isSuccessful;
 	}
