@@ -78,6 +78,7 @@ public class Auth {
 						isSuccessful = true;
 					}
 				}
+				passwordScanner.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
