@@ -59,7 +59,7 @@ public class Auth {
 	 * Called when a user attempts to login. Returns true if credentials are correct, false otherwise.
 	 * @param idGuess - userId provided by the user
 	 * @param passwordGuess - password provided by the user
-	 * @return
+	 * @return true if it was a valid login attempt -- the user should progress past the login screen. false if credentials were incorrect.
 	 */
 	public boolean validateLogin(String idGuess, String passwordGuess) {
 		boolean isSuccessful = false;
@@ -67,6 +67,7 @@ public class Auth {
 		String userDirectoryPath = BASE_PATH + idGuess;
 		File userDirectory = new File(userDirectoryPath);
 		
+		//this checks if the userID was valid -- if it was, there should be a directory in the data directory named the id.
 		if (userDirectory.isDirectory()) {
 			try {
 				Scanner passwordScanner = new Scanner(new File(userDirectoryPath + PASSWORD_NAME));
