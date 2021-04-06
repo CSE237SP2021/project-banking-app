@@ -38,4 +38,50 @@ public class AuthTests {
 		}
 		userDirectory.delete();
 	}
+	
+	@Test
+	/*
+	 * Tests that login attempt with correct credentials works successfully
+	 */
+	public void testValidateLogin() {
+		String id = "000000";
+		String password = "testpw";
+		String firstName = "John";
+		String lastName = "Doe";
+		File userDirectory = new File(basePath + id);
+		auth.register(id, password, firstName, lastName);
+		
+		boolean loginSuccess = auth.validateLogin(id, password);
+		
+		assertTrue(loginSuccess);
+		
+		//teardown
+		for(File file: userDirectory.listFiles()) {
+			file.delete();
+		}
+		userDirectory.delete();
+	}
+	
+	@Test
+	/**
+	 * Tests that wrong password but correct ID returns invalid login attempt
+	 */
+	public void testValidateLoginFalse() {
+		String id = "000000";
+		String password = "testpw";
+		String firstName = "John";
+		String lastName = "Doe";
+		File userDirectory = new File(basePath + id);
+		auth.register(id, password, firstName, lastName);
+		
+		boolean loginSuccess = auth.validateLogin(id, "incorrect password");
+		
+		assertTrue(!loginSuccess);
+		
+		//teardown
+		for(File file: userDirectory.listFiles()) {
+			file.delete();
+		}
+		userDirectory.delete();
+	}
 }
