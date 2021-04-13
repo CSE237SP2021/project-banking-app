@@ -42,7 +42,7 @@ public class AccountsMenu {
 					balanceHandler();
 					break;
 				case EXIT:
-					System.out.println("Exiting from " + this.account.getAccountName());
+					System.out.println("Exiting from " + this.account.getAccountName() + ", returning to home menu");
 					break mainLoop; //https://stackoverflow.com/questions/22823395/java-how-can-i-break-a-while-loop-under-a-switch-statement
 				default:
 					System.out.println("Valid commands are: " + DEPOSIT + ", " + WITHDRAW + ", " + BALANCE + ", " + EXIT);
