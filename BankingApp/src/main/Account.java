@@ -49,4 +49,8 @@ public class Account {
     public String getAccountName() {
     	return this.accountName;
     }
+    
+    public String toString() {
+    	return this.accountName;
+    }
 }
