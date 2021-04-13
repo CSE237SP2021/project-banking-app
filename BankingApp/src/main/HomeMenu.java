@@ -39,7 +39,7 @@ public class HomeMenu {
 				selectAccountHandler(scanner);
 				break;
 			default:
-				System.out.println("Command not recognized");
+				System.out.println("Command not recognized. Acceptable commands are: " + NEW_ACCOUNT + ", " + SELECT + ", " + EXIT);
 				
 			}
 		}
