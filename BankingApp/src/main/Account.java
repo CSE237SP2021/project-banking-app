@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 public class Account {
     private BigDecimal balance = new BigDecimal(0);
     private long accountNumber = 0;
-
-    public Account() {
+    private String accountName;
+    
+    public Account(String accountName) {
         // randomly generate accountNumber here later
+    	this.accountName = accountName;
     }
 
     /**
@@ -38,5 +40,13 @@ public class Account {
      */
     public BigDecimal getBalance() {
     	return this.balance;
+    }
+    
+    /**
+     * 
+     * @return accountName
+     */
+    public String getAccountName() {
+    	return this.accountName;
     }
 }

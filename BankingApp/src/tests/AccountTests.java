@@ -15,7 +15,7 @@ class AccountTests {
 	
 	@BeforeEach
 	public void setupTestingObjects() {
-		account = new Account();
+		account = new Account("checking");
 	}
 	
 	@Test

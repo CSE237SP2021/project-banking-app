@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		//initialize test person
 		Person testPerson = new Person("Default", "User");
-		testPerson.addAccount();
+		testPerson.addAccount("checking");
 		AccountsMenu accountsMenu = new AccountsMenu(testPerson.getAccounts().get(0));
 		Scanner scanner = new Scanner(System.in);
 		

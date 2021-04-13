@@ -25,18 +25,24 @@ public class Person {
 	/**
 	 * creates a new Account object, and adds it to the accounts ArrayList
 	 * 
-	 * @return true if new Account successfully added, false if it's not found in the ArrayList after .add() is called
+	 * @param accountName name for new account to be added
+	 * 
+	 * @return true if new Account successfully added, false if account with the same name is held in accounts
 	 */
-	public boolean addAccount() {
-		Account newAccountToAdd = new Account();
+	public boolean addAccount(String accountName) {
+		if(accountName.isBlank()) return false;
+		
+		Account newAccountToAdd = new Account(accountName);
+		
+		for(Account acc : this.accounts) {
+			if(acc.getAccountName().equals(accountName)) {
+				return false;
+			}
+		}
+		
 		accounts.add(newAccountToAdd);
 		
-		if(accounts.contains(newAccountToAdd)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return true;
 	}
 	
 	/**
