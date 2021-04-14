@@ -3,7 +3,7 @@
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class AccountsMenu {
+public class AccountsMenu extends Menu {
 	
 	//All available commands used in start function;
 	private final String DEPOSIT = "deposit";
@@ -97,19 +97,6 @@ public class AccountsMenu {
 		System.out.println("Your account now has a balance of: $" + newAccountBalance);
 	}
 	
-	/**
-	 * Gets input until a valid BigDecimal is input by the user
-	 * @param scanner
-	 * @return valid BigDecimal input
-	 */
-	private BigDecimal inputBigDecimal(Scanner scanner) {
-		String inputValue = new String();
-		
-		while (!scanner.hasNextBigDecimal()) {
-			inputValue = scanner.next();
-			System.out.println("Please enter a valid decimal value.");	
-		}
-		return scanner.nextBigDecimal();
-	}
+
 	
 }

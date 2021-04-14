@@ -6,7 +6,7 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private ArrayList<Account> accounts;
-	
+
 	/**
 	 * Person Constructor
 	 * 
@@ -18,33 +18,36 @@ public class Person {
 	public Person(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		
+
 		this.accounts = new ArrayList<Account>();
 	}
-	
+
 	/**
 	 * creates a new Account object, and adds it to the accounts ArrayList
 	 * 
-	 * @param accountName name for new account to be added
+	 * @param accountName
+	 *            name for new account to be added
 	 * 
-	 * @return true if new Account successfully added, false if account with the same name is held in accounts
+	 * @return true if new Account successfully added, false if account with the
+	 *         same name is held in accounts
 	 */
 	public boolean addAccount(String accountName) {
-		if(accountName.isBlank()) return false;
-		
+		if (accountName.isBlank())
+			return false;
+
 		Account newAccountToAdd = new Account(accountName);
-		
-		for(Account acc : this.accounts) {
-			if(acc.getAccountName().equals(accountName)) {
+
+		for (Account acc : this.accounts) {
+			if (acc.getAccountName().equals(accountName)) {
 				return false;
 			}
 		}
-		
+
 		accounts.add(newAccountToAdd);
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * accounts ArrayList getter
 	 * 
@@ -56,6 +59,7 @@ public class Person {
 
 	/**
 	 * firstName getter
+	 * 
 	 * @return firstName
 	 */
 	public String getFirstName() {
@@ -64,6 +68,7 @@ public class Person {
 
 	/**
 	 * lastName getter
+	 * 
 	 * @return lastName
 	 */
 	public String getLastName() {
