@@ -6,7 +6,7 @@
 -   Evan Molyneaux
 -   Jason Ren
 
-## Iteration I Release
+## Iteration II Release
 
 -   Upon running the program, the user is prompted to either login or register with the bank. After successfully logging in, they are prompted to either create an account, or select an existing an account with the bank (we were envisioning that a user might have several different accounts, such as savings and checkings). After selecting an account, the user can interact with their account with the following commands
     -   Deposit: deposit money into your account
