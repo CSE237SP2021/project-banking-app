@@ -8,12 +8,10 @@ import java.io.File;
 import main.Auth;
 
 public class AuthTests {
-	private Auth auth;
 	private String basePath;
 	
 	@BeforeEach
 	public void setupTestingObjects() {
-		auth = new Auth();
 		basePath = "./data/";
 	}
 	
@@ -27,7 +25,7 @@ public class AuthTests {
 		String firstName = "John";
 		String lastName = "Doe";
 		
-		auth.register(id, password, firstName, lastName);
+		Auth.register(id, password, firstName, lastName);
 		
 		File userDirectory = new File(basePath + id);
 		assertTrue(userDirectory.isDirectory());
@@ -49,9 +47,9 @@ public class AuthTests {
 		String firstName = "John";
 		String lastName = "Doe";
 		File userDirectory = new File(basePath + id);
-		auth.register(id, password, firstName, lastName);
+		Auth.register(id, password, firstName, lastName);
 		
-		boolean loginSuccess = auth.validateLogin(id, password);
+		boolean loginSuccess = Auth.validateLogin(id, password);
 		
 		assertTrue(loginSuccess);
 		
@@ -72,9 +70,9 @@ public class AuthTests {
 		String firstName = "John";
 		String lastName = "Doe";
 		File userDirectory = new File(basePath + id);
-		auth.register(id, password, firstName, lastName);
+		Auth.register(id, password, firstName, lastName);
 		
-		boolean loginSuccess = auth.validateLogin(id, "incorrect password");
+		boolean loginSuccess = Auth.validateLogin(id, "incorrect password");
 		
 		assertTrue(!loginSuccess);
 		
