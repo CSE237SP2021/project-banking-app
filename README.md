@@ -8,27 +8,29 @@
 
 ## Iteration I Release
 
--   Upon running the program, the user is prompted to input a command, or type help to see the available commands. The supported commands are as follows:
+-   Upon running the program, the user is prompted to either login or register with the bank. After successfully logging in, they are prompted to either create an account, or select an existing an account with the bank (we were envisioning that a user might have several different accounts, such as savings and checkings). After selecting an account, the user can interact with their account with the following commands
     -   Deposit: deposit money into your account
     -   Withdraw: take money from the account
     -   Balance: view the current balance of the account
-    -   Exit: exit the program
--   While this appears to be quite simple, there were extensive efforts made behind the scenes to make this iteration scalable in order to increase efficiency of development later o to support features we'd eventually like to implement. When the program begins, an instance of the Person class is automatically created, an instance of the Account class is added to that Person, and then that Account is passed to an AccountsMenu instance. We'd eventually like to support multiple users and persistent storage, which our code could easily support later on.
+    -   Transactions: view a transaction history.
+    -   Exit: return to the account selection menu.
 
 ## What user stories were completed this iteration?
 
--   Made an Account class to represent a user's bank account
--   Made a Person class to represent a person who can have multiple bank accounts
--   Made an AccountsMenu class that provides the functionality for the user to interact with their bank accounts
--   Made a Main class which acts as the entry point to our program. Currently this uses hardcoded Person, AccountsMenu, and Account objects to showcase our program
+-   A user should be able to register.
+-   A user should be able to login.
+-   A user should be able to create new bank accounts.
+-   A user should be able to switch bank accounts.
+-   A user should be able to see a log of their transaction history.
+-   A user should be able to see their data from a previous session (as mentioned below, this is mostly complete -- the only thing that isn't fully supported is transaction history).
 
 ## What user stories do you intend to complete next iteration?
 
--   For the next iteration we plan to expand upon the available commands within the AccountsMenu class. This may include being able to switch the current account, adding new accounts, deleting accounts, etc. Additionaly we would like to start working on a GUI for our program to provide a better user experience
+-   We would like to work on a GUI, finish the persistent storage to work with the transaction history feature, as well as support other features such as transferring funds or deleting accounts.
 
 ## Is there anything that you implemented but doesn't currently work?
 
--   No, for this iteration we made sure to layout the foundation for our project using object oriented principles to make sure adding functionality in later iterations will be a smooth process.
+-   The transaction history feature currently does not persist between program runs. It will work fine as long as you don't close the program -- however, once you restart it, the transaction history will be wiped.
 
 ## What commands are needed to compile and run your code from the command line?
 
