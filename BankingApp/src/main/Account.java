@@ -7,11 +7,13 @@ import main.Transaction.transactionTypes;
 public class Account {
     private BigDecimal balance = new BigDecimal(0);
     private long accountNumber = 0;
+    private String accountName;
     private ArrayList<Transaction> transactionList;
 
-    public Account() {
+    public Account(String accountName) {
         // randomly generate accountNumber here later
-    	transactionList = new ArrayList<Transaction>();
+    	this.accountName = accountName;
+      transactionList = new ArrayList<Transaction>();
     }
 
     /**
@@ -51,9 +53,22 @@ public class Account {
     	return this.balance;
     }
     
+
     public void printTransactionList() {
     	for(Transaction t : this.transactionList) {
     		System.out.println(t.toString());
     	}
+
+    /**
+     * 
+     * @return accountName
+     */
+    public String getAccountName() {
+    	return this.accountName;
+    }
+    
+    public String toString() {
+    	return this.accountName;
+
     }
 }

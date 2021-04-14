@@ -1,4 +1,4 @@
-package main;
+ package main;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -45,7 +45,7 @@ public class AccountsMenu {
 					transactionListHandler();
 					break;
 				case EXIT:
-					System.out.println("Thank you for banking with us, goodbye");
+					System.out.println("Exiting from " + this.account.getAccountName() + ", returning to home menu");
 					break mainLoop; //https://stackoverflow.com/questions/22823395/java-how-can-i-break-a-while-loop-under-a-switch-statement
 				default:
 					System.out.println("Valid commands are: " + DEPOSIT + ", " + WITHDRAW + ", " + BALANCE + ", " + TRANLIST + ", " + EXIT);
