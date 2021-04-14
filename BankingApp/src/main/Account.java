@@ -30,14 +30,16 @@ public class Account {
      * @return the new account balance
      */
     public BigDecimal deposit(BigDecimal depositAmount) {
-        this.balance = this.balance.add(depositAmount);
-        
-        transactionTypes depositType = transactionTypes.DEPOSIT;
-        Transaction depositT = new Transaction(depositType, depositAmount, this.balance);
-        transactionList.add(depositT);
-        
-        this.updateBalanceFile();
-        
+    	if (depositAmount.compareTo(new BigDecimal(0)) > 0) {
+            this.balance = this.balance.add(depositAmount);
+            
+            transactionTypes depositType = transactionTypes.DEPOSIT;
+            Transaction depositT = new Transaction(depositType, depositAmount, this.balance);
+            transactionList.add(depositT);
+            
+            this.updateBalanceFile();
+    	}
+
         return this.balance;
     }
 
@@ -49,14 +51,16 @@ public class Account {
      * @return the new account balance
      */
     public BigDecimal withdraw(BigDecimal withdrawAmount) {
-        this.balance = this.balance.subtract(withdrawAmount);
-        
-        transactionTypes withdrawType = transactionTypes.WITHDRAW;
-        Transaction withdrawT = new Transaction(withdrawType, withdrawAmount, this.balance);
-        transactionList.add(withdrawT);
-        
-        this.updateBalanceFile();
-        
+    	if (withdrawAmount.compareTo(new BigDecimal(0)) > 0) {
+            this.balance = this.balance.subtract(withdrawAmount);
+            
+            transactionTypes withdrawType = transactionTypes.WITHDRAW;
+            Transaction withdrawT = new Transaction(withdrawType, withdrawAmount, this.balance);
+            transactionList.add(withdrawT);
+            
+            this.updateBalanceFile();
+    	}
+
         return this.balance;
     }
     
