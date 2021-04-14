@@ -1,4 +1,6 @@
 package main;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -34,6 +36,8 @@ public class Account {
         Transaction depositT = new Transaction(depositType, depositAmount, this.balance);
         transactionList.add(depositT);
         
+        this.updateBalanceFile();
+        
         return this.balance;
     }
 
@@ -50,6 +54,8 @@ public class Account {
         transactionTypes withdrawType = transactionTypes.WITHDRAW;
         Transaction withdrawT = new Transaction(withdrawType, withdrawAmount, this.balance);
         transactionList.add(withdrawT);
+        
+        this.updateBalanceFile();
         
         return this.balance;
     }
@@ -76,5 +82,18 @@ public class Account {
     public String toString() {
     	return this.accountName;
 
+    }
+    
+    /*
+     * Updates the balance.txt file contained within the account directory
+     */
+    private void updateBalanceFile() {
+    	try {
+			FileWriter balanceWriter = new FileWriter(Auth.BASE_PATH + "/" + AuthMenu.currentPersonName + "/" + this.accountName + Auth.BALANCE_NAME);
+			balanceWriter.write(this.balance.toString());
+			balanceWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }

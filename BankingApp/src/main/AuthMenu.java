@@ -7,6 +7,8 @@ public class AuthMenu extends Menu {
 	private final String LOGIN = "login";
 	private final String REGISTER = "register";
 	private final String EXIT = "exit";
+	
+	public static String currentPersonName = "";
 
 	Scanner scanner;
 
@@ -14,25 +16,29 @@ public class AuthMenu extends Menu {
 		System.out.println("BANKING APP");
 		scanner = _scanner;
 
-		while (true) {
-			mainLoop: while (true) {
-				System.out.println("Welcome to your banking app! To login, type 'login'. To create a new account, type 'register'.");
-				String userInput = scanner.next().toLowerCase();
-				
-				switch (userInput) {
-				case LOGIN:
-					if (!loginAttempt()) {
-						System.out.println("Error: unable to login.");
-					}
-					break;
-				case REGISTER:
-					registerAttempt();
-					break;
-				default:
-					System.out.println("Command not recognized. Acceptable commands are: " + LOGIN + ", " + REGISTER + ", " + EXIT);
+		mainLoop: while (true) {
+			System.out.println(
+					"Welcome to your banking app! To login, type 'login'. To create a new account, type 'register'.");
+			String userInput = scanner.next().toLowerCase();
+
+			switch (userInput) {
+			case LOGIN:
+				if (!loginAttempt()) {
+					System.out.println("Error: unable to login.");
 				}
+				break;
+			case REGISTER:
+				registerAttempt();
+				break;
+			case EXIT:
+				System.out.println("Goodbye!");
+				break mainLoop;
+			default:
+				System.out.println(
+						"Command not recognized. Acceptable commands are: " + LOGIN + ", " + REGISTER + ", " + EXIT);
 			}
 		}
+
 	}
 
 	/**
@@ -47,15 +53,16 @@ public class AuthMenu extends Menu {
 		String username = this.inputAlphanumericString(scanner);
 		System.out.print("Please enter your password: ");
 		String password = this.inputAlphanumericString(scanner);
-		
+
 		isSuccessful = Auth.validateLogin(username, password);
-		
+
 		if (isSuccessful) {
+			AuthMenu.currentPersonName = username;
 			Person person = Auth.createPersonFromDirectory(username);
 			HomeMenu homeMenu = new HomeMenu(person);
 			homeMenu.start(scanner);
 		}
-		
+
 		return isSuccessful;
 	}
 
@@ -66,7 +73,7 @@ public class AuthMenu extends Menu {
 	 */
 	private boolean registerAttempt() {
 		boolean isSuccessful = false;
-		
+
 		System.out.print("Please enter your username: ");
 		String username = this.inputAlphanumericString(scanner);
 		System.out.print("Please enter your password: ");
@@ -84,7 +91,7 @@ public class AuthMenu extends Menu {
 		} else {
 			System.out.println("Error: failed to create account!");
 		}
-		
+
 		return isSuccessful;
 	}
 }

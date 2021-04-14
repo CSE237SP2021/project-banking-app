@@ -10,7 +10,7 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private ArrayList<Account> accounts;
-
+	
 	/**
 	 * Person Constructor
 	 * 

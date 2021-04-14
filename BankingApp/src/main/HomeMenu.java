@@ -24,7 +24,7 @@ public class HomeMenu extends Menu {
 	 *            (to make unit testing easier)
 	 */
 	public void start(Scanner scanner) {
-		System.out.println("Welcome, " + this.person.getFirstName() + " " + this.person.getLastName());
+		System.out.println("Welcome, " + this.person.getFirstName() + " " + this.person.getLastName() + ". Enter commands (or type help).");
 
 		mainLoop: while (true) {
 			String userInput = scanner.next().toLowerCase();
@@ -91,13 +91,17 @@ public class HomeMenu extends Menu {
 			}
 
 			System.out.println("");
-			System.out.println("Enter account name to select that account");
+			System.out.println("Enter account name to select that account, or type cancel to return");
 
 			input = scanner.next();
 			int index = findAccount(input);
-			if (index == -1) {
+			if (input.toLowerCase().equals("cancel")) {
+				success = true;
+			}
+			else if (index == -1) {
 				System.out.println("Error, account \"" + input + "\" not found");
-			} else {
+			}
+			else {
 				Account selectedAccount = person.getAccounts().get(index);
 				AccountsMenu accountsMenu = new AccountsMenu(selectedAccount);
 				accountsMenu.start(scanner);
