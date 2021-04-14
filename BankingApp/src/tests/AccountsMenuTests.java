@@ -19,7 +19,7 @@ class AccountsMenuTests {
 	
 	@Test
 	void testDeposit() {
-		Account testAccount = new Account();
+		Account testAccount = new Account("checking");
 		
 		AccountsMenu am = new AccountsMenu(testAccount);
 		String[] strings = {"deposit", "100.5", "exit"};
@@ -34,7 +34,7 @@ class AccountsMenuTests {
 	
 	@Test
 	void testWithdraw() {
-		Account testAccount = new Account();
+		Account testAccount = new Account("checking");
 		
 		AccountsMenu am = new AccountsMenu(testAccount);
 		String[] strings = {"withdraw", "100.79", "exit"};
@@ -49,7 +49,7 @@ class AccountsMenuTests {
 	
 	@Test
 	void testMultipleActions() {
-		Account testAccount = new Account();
+		Account testAccount = new Account("checking");
 		
 		AccountsMenu am = new AccountsMenu(testAccount);
 		String[] strings = {"withdraw", "100.5", "deposit", "150.6","balance","exit"};
