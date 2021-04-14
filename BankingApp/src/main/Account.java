@@ -58,6 +58,7 @@ public class Account {
     	for(Transaction t : this.transactionList) {
     		System.out.println(t.toString());
     	}
+    }
 
     /**
      * 
