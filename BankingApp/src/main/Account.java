@@ -6,12 +6,10 @@ import main.Transaction.transactionTypes;
 
 public class Account {
     private BigDecimal balance = new BigDecimal(0);
-    private long accountNumber = 0;
     private String accountName;
     private ArrayList<Transaction> transactionList;
 
     public Account(String accountName) {
-        // randomly generate accountNumber here later
     	this.accountName = accountName;
     	this.transactionList = new ArrayList<Transaction>();
     }
@@ -35,6 +33,7 @@ public class Account {
         transactionTypes depositType = transactionTypes.DEPOSIT;
         Transaction depositT = new Transaction(depositType, depositAmount, this.balance);
         transactionList.add(depositT);
+        
         return this.balance;
     }
 

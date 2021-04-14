@@ -142,7 +142,6 @@ public class Auth {
 						}
 						balanceScanner.close();
 						
-						
 						//create transactions array list
 						ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 						//TODO fill transactions
