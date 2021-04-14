@@ -10,7 +10,7 @@ public class AccountsMenu {
 	private final String WITHDRAW = "withdraw";
 	private final String EXIT = "exit";
 	private final String BALANCE = "balance";
-	
+	private final String TRANLIST = "transactions";
 	
 	Account account;
 	
@@ -41,20 +41,32 @@ public class AccountsMenu {
 				case BALANCE:
 					balanceHandler();
 					break;
+				case TRANLIST:
+					transactionListHandler();
+					break;
 				case EXIT:
 					System.out.println("Thank you for banking with us, goodbye");
 					break mainLoop; //https://stackoverflow.com/questions/22823395/java-how-can-i-break-a-while-loop-under-a-switch-statement
 				default:
-					System.out.println("Valid commands are: " + DEPOSIT + ", " + WITHDRAW + ", " + BALANCE + ", " + EXIT);
+					System.out.println("Valid commands are: " + DEPOSIT + ", " + WITHDRAW + ", " + BALANCE + ", " + TRANLIST + ", " + EXIT);
 			}
 		}
 		
 	}
+	
+	/**
+	 * Handles printing the transaction list
+	 */
+	private void transactionListHandler() {
+		this.account.printTransactionList();
+		balanceHandler();
+	}
+	
 	/**
 	 * Handles the balance command
 	 */
 	private void balanceHandler() {
-		System.out.println("Your account balance is: $" + this.account.getBalance());
+		System.out.println("Your current account balance is: $" + this.account.getBalance());
 	}
 
 	/**
