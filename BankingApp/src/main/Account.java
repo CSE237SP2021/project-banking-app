@@ -13,7 +13,13 @@ public class Account {
     public Account(String accountName) {
         // randomly generate accountNumber here later
     	this.accountName = accountName;
-      transactionList = new ArrayList<Transaction>();
+    	this.transactionList = new ArrayList<Transaction>();
+    }
+    
+    public Account(String accountName, BigDecimal balance, ArrayList<Transaction> transactions) {
+    	this.accountName = accountName;
+    	this.balance = balance;
+    	this.transactionList = transactions;
     }
 
     /**

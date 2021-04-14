@@ -17,16 +17,13 @@ public class AuthMenu extends Menu {
 		while (true) {
 			mainLoop: while (true) {
 				System.out.println("Welcome to your banking app! To login, type 'login'. To create a new account, type 'register'.");
-				String userInput = scanner.nextLine().toLowerCase();
+				String userInput = scanner.next().toLowerCase();
 				
 				switch (userInput) {
 				case LOGIN:
-					if (loginAttempt()) {
-						System.out.println("Thank you for banking with us!");
-					} else {
+					if (!loginAttempt()) {
 						System.out.println("Error: unable to login.");
 					}
-					
 					break;
 				case REGISTER:
 					registerAttempt();
@@ -47,9 +44,9 @@ public class AuthMenu extends Menu {
 		boolean isSuccessful = false;
 
 		System.out.print("Please enter your username: ");
-		String username = scanner.nextLine();
+		String username = this.inputAlphanumericString(scanner);
 		System.out.print("Please enter your password: ");
-		String password = scanner.nextLine();
+		String password = this.inputAlphanumericString(scanner);
 		
 		isSuccessful = Auth.validateLogin(username, password);
 		
@@ -69,15 +66,15 @@ public class AuthMenu extends Menu {
 	 */
 	private boolean registerAttempt() {
 		boolean isSuccessful = false;
-
+		
 		System.out.print("Please enter your username: ");
-		String username = scanner.nextLine();
+		String username = this.inputAlphanumericString(scanner);
 		System.out.print("Please enter your password: ");
-		String password = scanner.nextLine();
+		String password = this.inputAlphanumericString(scanner);
 		System.out.print("Please enter your first name: ");
-		String firstName = scanner.nextLine();
+		String firstName = this.inputAlphanumericString(scanner);
 		System.out.print("Please enter your last name: ");
-		String lastName = scanner.nextLine();
+		String lastName = this.inputAlphanumericString(scanner);
 
 		System.out.println("Attempting to register account with id: " + username + "...");
 		isSuccessful = Auth.register(username, password, firstName, lastName);
