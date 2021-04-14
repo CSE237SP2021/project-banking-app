@@ -6,6 +6,7 @@ public class AuthMenu extends Menu {
 
 	private final String LOGIN = "login";
 	private final String REGISTER = "register";
+	private final String EXIT = "exit";
 
 	Scanner scanner;
 
@@ -47,7 +48,7 @@ public class AuthMenu extends Menu {
 	private boolean registerAttempt() {
 		boolean isSuccessful = false;
 
-		System.out.print("Please enter your a username: ");
+		System.out.print("Please enter your username: ");
 		String username = scanner.nextLine();
 		System.out.print("Please enter your password: ");
 		String password = scanner.nextLine();
