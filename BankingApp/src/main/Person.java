@@ -1,12 +1,16 @@
 package main;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Person {
+	private String id;
 	private String firstName;
 	private String lastName;
 	private ArrayList<Account> accounts;
-
+	
 	/**
 	 * Person Constructor
 	 * 
@@ -21,6 +25,15 @@ public class Person {
 
 		this.accounts = new ArrayList<Account>();
 	}
+	
+	public Person(String userID, String firstName, String lastName) {
+		this.id = userID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+
+		this.accounts = new ArrayList<Account>();
+	}
+	
 
 	/**
 	 * creates a new Account object, and adds it to the accounts ArrayList
@@ -42,10 +55,39 @@ public class Person {
 				return false;
 			}
 		}
-
+		
+		//create account directory and generate balance and transaction files
+		if (AuthMenu.currentPersonName != null && !AuthMenu.currentPersonName.isBlank()) {
+			String userDirectoryPath = Auth.BASE_PATH + id;
+			String accountPath = userDirectoryPath + "/" + accountName;
+			try {
+				File accountWriter = new File(accountPath);
+				if (accountWriter.mkdir()) {
+					String balancePath = accountPath + "/" + "balance.txt";
+					File balanceFile = new File(balancePath);
+					balanceFile.createNewFile();
+					FileWriter balanceWriter = new FileWriter(balanceFile);
+					balanceWriter.append("0");
+					balanceWriter.close();
+					
+					String transactionPath = accountPath + "/" + "transactions.csv";
+					File transactionFile = new File(transactionPath);
+					transactionFile.createNewFile();
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		}
 		accounts.add(newAccountToAdd);
 
 		return true;
+	}
+	
+	public boolean addAccount(Account account) {
+		return accounts.add(account);
 	}
 
 	/**

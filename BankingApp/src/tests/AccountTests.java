@@ -24,7 +24,7 @@ class AccountTests {
 	}
 	
 	@Test
-	void testDeposit() {
+	void testDepositGood() {
 		BigDecimal depositAmount = new BigDecimal("12.34");
 		
 		account.deposit(depositAmount);
@@ -33,7 +33,16 @@ class AccountTests {
 	}
 	
 	@Test
-	void testWithdraw() {
+	void testDepositNegative() {
+		BigDecimal depositAmount = new BigDecimal("-1");
+		
+		account.deposit(depositAmount);
+		
+		assertTrue(new BigDecimal(0).compareTo(account.getBalance()) == 0);
+	}
+	
+	@Test
+	void testWithdrawGood() {
 		BigDecimal depositAmount = new BigDecimal("12.34");
 		BigDecimal withdrawAmount = new BigDecimal("12.00");
 		BigDecimal endAmount = depositAmount.subtract(withdrawAmount);
@@ -42,6 +51,15 @@ class AccountTests {
 		account.withdraw(withdrawAmount);
 		
 		assertTrue(account.getBalance().compareTo(endAmount) == 0);
+	}
+	
+	@Test
+	void testWithdrawNegative() {
+		BigDecimal withdrawAmount = new BigDecimal("-1");
+		
+		account.withdraw(withdrawAmount);
+		
+		assertTrue(new BigDecimal(0).compareTo(account.getBalance()) == 0);
 	}
 
 }

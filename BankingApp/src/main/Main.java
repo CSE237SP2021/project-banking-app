@@ -9,6 +9,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		AuthMenu authMenu = new AuthMenu();
 		authMenu.start(scanner);
+		scanner.close();
 	}
 
 }

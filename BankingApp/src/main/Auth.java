@@ -1,8 +1,11 @@
 package main;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Auth {
@@ -10,6 +13,8 @@ public class Auth {
 	final static String PASSWORD_NAME = "/password.txt";
 	final static String FIRSTNAME_NAME = "/firstname.txt";
 	final static String LASTNAME_NAME = "/lastname.txt";
+	final static String BALANCE_NAME = "/balance.txt";
+	final static String TRANSACTION_NAME = "/transactions.csv";
 
 	/**
 	 * Creates a directory containing .txt files to represent a Person instance.
@@ -98,10 +103,11 @@ public class Auth {
 	}
 	
 	/**
-	 * Create a Person from a directory path
+	 * Create a Person and their accounts from a directory path
 	 * @return null if unable to correctly create a Person. Otherwise, the person specified by the ID.
 	 */
 	public static Person createPersonFromDirectory(String id) {
+		Person personToReturn = null;
 		String userDirectoryPath = BASE_PATH + id;
 		String firstName = "";
 		String lastName = "";
@@ -120,16 +126,37 @@ public class Auth {
 					lastName = lastNameScanner.nextLine();
 				}
 				lastNameScanner.close();
+				
+				//if person exists, finish creating object by adding accounts to accounts ArrayList
+				if (!firstName.equals("") && !lastName.equals("")) {
+					personToReturn = new Person(id, firstName, lastName);
+					
+					//https://stackoverflow.com/questions/5125242/java-list-only-subdirectories-from-a-directory-not-files/5125258
+					File[] accounts = new File(userDirectoryPath).listFiles(File::isDirectory);
+					for (File account : accounts) {
+						//get balance value of account
+						BigDecimal balance = new BigDecimal(0);
+						Scanner balanceScanner = new Scanner(new File(account.toString() + BALANCE_NAME));
+						if (balanceScanner.hasNextBigDecimal()) {
+							balance = balanceScanner.nextBigDecimal();
+						}
+						balanceScanner.close();
+						
+						//create transactions array list
+						ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+						//TODO fill transactions
+						
+						Account newAccount = new Account(account.getName(), balance, transactions);
+						personToReturn.addAccount(newAccount);
+					}
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		if (!firstName.equals("") && !lastName.equals("")) {
-			return new Person(firstName, lastName);
-		} else {
-			//this seems kind of bad ... 
-			return null;
-		}
+
+		//this seems kind of bad ... null if not created correctly
+		return personToReturn;
 	}
 }

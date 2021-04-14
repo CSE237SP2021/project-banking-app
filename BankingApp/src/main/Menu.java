@@ -24,6 +24,19 @@ public abstract class Menu {
 		}
 		return scanner.nextBigDecimal();
 	}
+	
+	protected String inputAlphanumericString(Scanner scanner) {
+		String inputValue = new String("-");
+		
+		while (!inputValue.matches("^[a-zA-Z0-9]*$")) {
+			inputValue = scanner.next();
+			if (!inputValue.matches("^[a-zA-Z0-9]*$")) {
+				System.out.println("Please enter a valid alphanumeric string.");
+			}
+		}
+		
+		return inputValue;
+	}
 
 	/**
 	 * Entry point for all classes extending Menu
