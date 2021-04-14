@@ -57,30 +57,31 @@ public class Person {
 		}
 		
 		//create account directory and generate balance and transaction files
-		String userDirectoryPath = Auth.BASE_PATH + id;
-		String accountPath = userDirectoryPath + "/" + accountName;
-		try {
-			File accountWriter = new File(accountPath);
-			if (accountWriter.mkdir()) {
-				String balancePath = accountPath + "/" + "balance.txt";
-				File balanceFile = new File(balancePath);
-				balanceFile.createNewFile();
-				FileWriter balanceWriter = new FileWriter(balanceFile);
-				balanceWriter.append("0");
-				balanceWriter.close();
+		if (AuthMenu.currentPersonName != null && !AuthMenu.currentPersonName.isBlank()) {
+			String userDirectoryPath = Auth.BASE_PATH + id;
+			String accountPath = userDirectoryPath + "/" + accountName;
+			try {
+				File accountWriter = new File(accountPath);
+				if (accountWriter.mkdir()) {
+					String balancePath = accountPath + "/" + "balance.txt";
+					File balanceFile = new File(balancePath);
+					balanceFile.createNewFile();
+					FileWriter balanceWriter = new FileWriter(balanceFile);
+					balanceWriter.append("0");
+					balanceWriter.close();
+					
+					String transactionPath = accountPath + "/" + "transactions.csv";
+					File transactionFile = new File(transactionPath);
+					transactionFile.createNewFile();
+				}
 				
-				String transactionPath = accountPath + "/" + "transactions.csv";
-				File transactionFile = new File(transactionPath);
-				transactionFile.createNewFile();
-				
-				accounts.add(newAccountToAdd);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
 			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
 		}
+		accounts.add(newAccountToAdd);
 
 		return true;
 	}

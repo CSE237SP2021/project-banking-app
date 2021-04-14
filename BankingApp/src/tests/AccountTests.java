@@ -24,7 +24,7 @@ class AccountTests {
 	}
 	
 	@Test
-	void testDeposit() {
+	void testDepositGood() {
 		BigDecimal depositAmount = new BigDecimal("12.34");
 		
 		account.deposit(depositAmount);

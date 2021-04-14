@@ -88,12 +88,16 @@ public class Account {
      * Updates the balance.txt file contained within the account directory
      */
     private void updateBalanceFile() {
-    	try {
-			FileWriter balanceWriter = new FileWriter(Auth.BASE_PATH + "/" + AuthMenu.currentPersonName + "/" + this.accountName + Auth.BALANCE_NAME);
-			balanceWriter.write(this.balance.toString());
-			balanceWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	//only attempt to write to a file if we navigated here through a menu to avoid breaking tests
+    	if (AuthMenu.currentPersonName != null && !AuthMenu.currentPersonName.isBlank()) {
+        	try {
+    			FileWriter balanceWriter = new FileWriter(Auth.BASE_PATH + "/" + AuthMenu.currentPersonName + "/" + this.accountName + Auth.BALANCE_NAME);
+    			balanceWriter.write(this.balance.toString());
+    			balanceWriter.close();
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    	}
+
     }
 }

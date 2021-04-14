@@ -28,9 +28,10 @@ class HomeMenuTests {
 		InputStream inputStream = new ByteArrayInputStream(String.join(System.lineSeparator(), Arrays.asList(commands)).getBytes());
 		
 		homeMenu.start(new Scanner(inputStream));
-		
+
 		assertTrue(person.getAccounts().size() == 1);
 	}
+	
 	@Test
 	void testAddMultipleAccountsWithoutDuplicate() {
 		Person person = new Person("first", "last");
