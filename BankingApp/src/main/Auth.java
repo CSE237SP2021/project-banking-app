@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Auth {
-	final String BASE_PATH = "./data/";
-	final String PASSWORD_NAME = "/password.txt";
-	final String FIRSTNAME_NAME = "/firstname.txt";
-	final String LASTNAME_NAME = "/lastname.txt";
+	final static String BASE_PATH = "./data/";
+	final static String PASSWORD_NAME = "/password.txt";
+	final static String FIRSTNAME_NAME = "/firstname.txt";
+	final static String LASTNAME_NAME = "/lastname.txt";
 
 	/**
 	 * Creates a directory containing .txt files to represent a Person instance.
@@ -22,9 +22,10 @@ public class Auth {
 	 * @return true if directory and all files were created with correct contents.
 	 *         False otherwise
 	 */
-	public boolean register(String id, String password, String firstName, String lastName) {
+	public static boolean register(String id, String password, String firstName, String lastName) {
 		boolean isSuccessful = false;
 		String userDirectoryPath = BASE_PATH + id;
+
 		try {
 			File userDirectory = new File(userDirectoryPath);
 			if (userDirectory.mkdir()) {
@@ -69,7 +70,7 @@ public class Auth {
 	 * @return true if it was a valid login attempt -- the user should progress past
 	 *         the login screen. false if credentials were incorrect.
 	 */
-	public boolean validateLogin(String idGuess, String passwordGuess) {
+	public static boolean validateLogin(String idGuess, String passwordGuess) {
 		boolean isSuccessful = false;
 
 		String userDirectoryPath = BASE_PATH + idGuess;

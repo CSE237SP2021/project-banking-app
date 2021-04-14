@@ -11,7 +11,6 @@ public class AccountsMenu extends Menu {
 	private final String EXIT = "exit";
 	private final String BALANCE = "balance";
 	
-	
 	Account account;
 	
 	public AccountsMenu(Account account) {

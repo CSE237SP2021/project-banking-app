@@ -11,8 +11,10 @@ public class Main {
 
 		
 		Scanner scanner = new Scanner(System.in);
-		HomeMenu homeMenu = new HomeMenu(testPerson);
-		homeMenu.start(scanner);
+//		HomeMenu homeMenu = new HomeMenu(testPerson);
+//		homeMenu.start(scanner);
+		AuthMenu authMenu = new AuthMenu();
+		authMenu.start(scanner);
 	}
 
 }

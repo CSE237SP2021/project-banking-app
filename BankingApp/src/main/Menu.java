@@ -19,4 +19,6 @@ public class Menu {
 		}
 		return scanner.nextBigDecimal();
 	}
+	
+	
 }
