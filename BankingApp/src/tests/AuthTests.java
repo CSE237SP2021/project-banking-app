@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import main.Auth;
+import main.Person;
 
 public class AuthTests {
 	private String basePath;
@@ -81,5 +82,46 @@ public class AuthTests {
 			file.delete();
 		}
 		userDirectory.delete();
+	}
+	
+	@Test
+	/**
+	 * Tests Auth.CreatePersonFromDirectroy with valid credentials.
+	 */
+	public void testCreatePersonFromDirectoryGood() {
+		String id = "000000";
+		String password = "testpw";
+		String firstName = "John";
+		String lastName = "Doe";
+		File userDirectory = new File(basePath + id);
+		Auth.register(id, password, firstName, lastName);
+		
+		Person person = Auth.createPersonFromDirectory(id);
+		
+		if (person != null) {
+			assertTrue(person.getFirstName().equals(firstName));
+		}
+		
+		//teardown
+		for(File file: userDirectory.listFiles()) {
+			file.delete();
+		}
+		userDirectory.delete();
+	}
+	
+	@Test
+	/**
+	 * Tests Auth.CreatePersonFromDirectroy with bad credentials.
+	 */
+	public void testCreatePersonFromDirectoryBad() {
+		String id = "000000";
+		String password = "testpw";
+		String firstName = "John";
+		String lastName = "Doe";
+		File userDirectory = new File(basePath + id);
+		
+		Person person = Auth.createPersonFromDirectory(id);
+		
+		assertTrue(person == null);
 	}
 }

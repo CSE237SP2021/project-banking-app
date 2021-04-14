@@ -16,16 +16,23 @@ public class AuthMenu extends Menu {
 
 		while (true) {
 			mainLoop: while (true) {
+				System.out.println("Welcome to your banking app! To login, type 'login'. To create a new account, type 'register'.");
 				String userInput = scanner.nextLine().toLowerCase();
-
+				
 				switch (userInput) {
 				case LOGIN:
+					if (loginAttempt()) {
+						System.out.println("Thank you for banking with us!");
+					} else {
+						System.out.println("Error: unable to login.");
+					}
+					
 					break;
 				case REGISTER:
 					registerAttempt();
 					break;
 				default:
-					System.out.println("Command not recognized. Acceptable commands are: " + LOGIN + ", " + REGISTER);
+					System.out.println("Command not recognized. Acceptable commands are: " + LOGIN + ", " + REGISTER + ", " + EXIT);
 				}
 			}
 		}
@@ -36,8 +43,23 @@ public class AuthMenu extends Menu {
 	 * 
 	 * @return success of login attempt
 	 */
-	private boolean attemptLogin() {
-		return false;
+	private boolean loginAttempt() {
+		boolean isSuccessful = false;
+
+		System.out.print("Please enter your username: ");
+		String username = scanner.nextLine();
+		System.out.print("Please enter your password: ");
+		String password = scanner.nextLine();
+		
+		isSuccessful = Auth.validateLogin(username, password);
+		
+		if (isSuccessful) {
+			Person person = Auth.createPersonFromDirectory(username);
+			HomeMenu homeMenu = new HomeMenu(person);
+			homeMenu.start(scanner);
+		}
+		
+		return isSuccessful;
 	}
 
 	/**

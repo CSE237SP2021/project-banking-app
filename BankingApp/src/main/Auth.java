@@ -96,4 +96,40 @@ public class Auth {
 
 		return isSuccessful;
 	}
+	
+	/**
+	 * Create a Person from a directory path
+	 * @return null if unable to correctly create a Person. Otherwise, the person specified by the ID.
+	 */
+	public static Person createPersonFromDirectory(String id) {
+		String userDirectoryPath = BASE_PATH + id;
+		String firstName = "";
+		String lastName = "";
+		
+		try {
+			File userDirectory = new File(userDirectoryPath);
+			if (userDirectory.isDirectory()) {
+				Scanner firstNameScanner = new Scanner(new File(userDirectoryPath + FIRSTNAME_NAME));
+				while (firstNameScanner.hasNextLine()) {
+					firstName = firstNameScanner.nextLine();
+				}
+				firstNameScanner.close();
+				
+				Scanner lastNameScanner = new Scanner(new File(userDirectoryPath + LASTNAME_NAME));
+				while (lastNameScanner.hasNextLine()) {
+					lastName = lastNameScanner.nextLine();
+				}
+				lastNameScanner.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		if (!firstName.equals("") && !lastName.equals("")) {
+			return new Person(firstName, lastName);
+		} else {
+			//this seems kind of bad ... 
+			return null;
+		}
+	}
 }

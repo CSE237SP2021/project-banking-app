@@ -11,7 +11,7 @@ public abstract class Menu {
 
 	/**
 	 * Gets input until a valid BigDecimal is input by the user
-	 * 
+	 * Test coverage is covered by AccountsMenuTests, as most tests are reliant on this method working correctly anyways.
 	 * @param scanner
 	 * @return valid BigDecimal input
 	 */
@@ -25,6 +25,10 @@ public abstract class Menu {
 		return scanner.nextBigDecimal();
 	}
 
+	/**
+	 * Entry point for all classes extending Menu
+	 * @param _scanner
+	 */
 	public abstract void start(Scanner _scanner);
 
 }
