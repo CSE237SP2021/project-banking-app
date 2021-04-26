@@ -43,15 +43,15 @@ public class Transaction {
 	}
 
 	public String getTimestamp() {
-		return timestamp;
+		return this.timestamp;
 	}
 
 	public transactionTypes getType() {
-		return type;
+		return this.type;
 	}
 
 	public BigDecimal getAmount() {
-		return amount;
+		return this.amount;
 	}
 	
 	public BigDecimal getNewBalance() {
@@ -60,7 +60,7 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		String transaction = timestamp + " : " + type + " of $" + amount + ".      BALANCE = $" + newBalance;
+		String transaction = this.timestamp + " : " + this.type + " of $" + this.amount + ".      BALANCE = $" + this.newBalance;
 		return transaction;
 	}
 }
