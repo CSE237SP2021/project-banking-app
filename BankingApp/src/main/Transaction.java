@@ -53,6 +53,10 @@ public class Transaction {
 	public BigDecimal getAmount() {
 		return amount;
 	}
+	
+	public BigDecimal getNewBalance() {
+		return this.newBalance;
+	}
 
 	@Override
 	public String toString() {
