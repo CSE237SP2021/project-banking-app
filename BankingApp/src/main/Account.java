@@ -35,7 +35,7 @@ public class Account {
             
             transactionTypes depositType = transactionTypes.DEPOSIT;
             Transaction depositT = new Transaction(depositType, depositAmount, this.balance);
-            transactionList.add(depositT);
+            this.addTransactionToList(depositT);
             
             this.updateBalanceFile();
     	}
@@ -56,7 +56,7 @@ public class Account {
             
             transactionTypes withdrawType = transactionTypes.WITHDRAW;
             Transaction withdrawT = new Transaction(withdrawType, withdrawAmount, this.balance);
-            transactionList.add(withdrawT);
+            this.addTransactionToList(withdrawT);
             
             this.updateBalanceFile();
     	}
@@ -103,5 +103,25 @@ public class Account {
     		}
     	}
 
+    }
+    
+    private void addTransactionToList(Transaction transactionToAdd) {
+    	try {
+    		FileWriter csvWriter = new FileWriter(Auth.BASE_PATH + "/" + AuthMenu.currentPersonName + "/" + this.accountName + Auth.TRANSACTION_NAME);
+    		String lineToWrite = transactionToAdd.getTimestamp() + "," + 
+    				transactionToAdd.getType().name() + "," + 
+    				transactionToAdd.getAmount() + "," + 
+    				transactionToAdd.getNewBalance() + "\n";
+    		
+    		csvWriter.append(lineToWrite);
+    		
+    		//apparently FileWriter.close() calls .flush(), but exceptions thrown by .flush() are suppressed when it is called through close().
+    		csvWriter.flush();
+    		csvWriter.close();
+    		
+    		this.transactionList.add(transactionToAdd);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
     }
 }
