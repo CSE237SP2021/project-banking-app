@@ -119,7 +119,7 @@ public class Account {
     	}
     	
     	try {
-    		FileWriter csvWriter = new FileWriter(Auth.BASE_PATH + "/" + AuthMenu.currentPersonName + "/" + this.accountName + Auth.TRANSACTION_NAME);
+    		FileWriter csvWriter = new FileWriter(Auth.BASE_PATH + "/" + AuthMenu.currentPersonName + "/" + this.accountName + Auth.TRANSACTION_NAME, true);
     		String lineToWrite = transactionToAdd.getTimestamp() + "," + 
     				transactionToAdd.getType().name() + "," + 
     				transactionToAdd.getAmount() + "," + 
