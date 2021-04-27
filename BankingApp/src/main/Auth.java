@@ -129,7 +129,7 @@ public class Auth {
 				
 				//if person exists, finish creating object by adding accounts to accounts ArrayList
 				if (!firstName.equals("") && !lastName.equals("")) {
-					personToReturn = new Person(id, firstName, lastName);
+					Person tempPerson = new Person(id, firstName, lastName);
 					
 					//https://stackoverflow.com/questions/5125242/java-list-only-subdirectories-from-a-directory-not-files/5125258
 					File[] accounts = new File(userDirectoryPath).listFiles(File::isDirectory);
@@ -144,11 +144,39 @@ public class Auth {
 						
 						//create transactions array list
 						ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-						//TODO fill transactions
+						ArrayList<Transaction> tempTransactions = new ArrayList<Transaction>();
+						
+						Scanner transactionScanner = new Scanner(new File(account.toString() + TRANSACTION_NAME));
+						while (transactionScanner.hasNextLine()) {
+							Transaction transaction;
+							String line = transactionScanner.nextLine();
+							
+							String[] data = line.split(",");
+							if (data.length != 4) {
+								System.out.println("error generating transaction history");
+								break;
+							} else {
+								String timestamp = data[0];
+								Transaction.transactionTypes transactionType = Transaction.transactionTypes.valueOf(data[1]);
+								BigDecimal amount = new BigDecimal(data[2]);
+								BigDecimal newBalance= new BigDecimal(data[3]);
+								transaction = new Transaction(timestamp, transactionType, amount, newBalance);
+							}
+							
+							tempTransactions.add(transaction);
+						}
+						transactionScanner.close();
+						
+						//reverse the transactions so that the most recent appear first
+						for (int i = 0; i < tempTransactions.size(); i++) {
+							transactions.add(tempTransactions.get(tempTransactions.size() - i - 1));
+						}
 						
 						Account newAccount = new Account(account.getName(), balance, transactions);
-						personToReturn.addAccount(newAccount);
+						tempPerson.addAccount(newAccount);
 					}
+					
+					personToReturn = tempPerson;
 				}
 			}
 		} catch (IOException e) {
