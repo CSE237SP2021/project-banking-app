@@ -33,6 +33,21 @@ public class Transaction {
 		this.type = type;
 		this.timestamp = formatTime();
 	}
+	
+	/**
+	 * Transaction Constructor with timestamp
+	 * 
+	 * Includes function call to formatTime()
+	 * 
+	 * @param type
+	 * @param amount
+	 */
+	public Transaction(String timestamp, transactionTypes type, BigDecimal amount, BigDecimal newBalance) {
+		this.newBalance = newBalance;
+		this.amount = amount;
+		this.type = type;
+		this.timestamp = timestamp;
+	}
 
 	/**
 	 * format LocalDateTime to make transaction list more readable
@@ -43,20 +58,24 @@ public class Transaction {
 	}
 
 	public String getTimestamp() {
-		return timestamp;
+		return this.timestamp;
 	}
 
 	public transactionTypes getType() {
-		return type;
+		return this.type;
 	}
 
 	public BigDecimal getAmount() {
-		return amount;
+		return this.amount;
+	}
+	
+	public BigDecimal getNewBalance() {
+		return this.newBalance;
 	}
 
 	@Override
 	public String toString() {
-		String transaction = timestamp + " : " + type + " of $" + amount + ".      BALANCE = $" + newBalance;
+		String transaction = this.timestamp + " : " + this.type + " of $" + this.amount + ".      BALANCE = $" + this.newBalance;
 		return transaction;
 	}
 }
