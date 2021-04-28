@@ -79,6 +79,32 @@ class HomeMenuTests {
 		assertTrue(ans.subtract(accountBalance).compareTo(EPSILON) == -1);
 	}
 	
+	@Test
+	void testTransferWithTwoValidAccounts() {
+		Person person = new Person("first", "last");
+		HomeMenu homeMenu = new HomeMenu(person);
+		
+		String accountName = "checking";
+		
+		String[] commands = {"newaccount", accountName,"selectaccount",accountName,"deposit","100","exit",
+				"newaccount","b","transfer",accountName,"b","90","exit"};
+		InputStream inputStream = new ByteArrayInputStream(String.join(System.lineSeparator(), Arrays.asList(commands)).getBytes());
+		
+		homeMenu.start(new Scanner(inputStream));
+		int withdrawIndex = findAccount(accountName,person);
+		int depositIndex = findAccount("b", person);
+		BigDecimal withdrawAccountBalance = person.getAccounts().get(withdrawIndex).getBalance();
+		BigDecimal depositAccountBalance = person.getAccounts().get(depositIndex).getBalance();
+		
+		BigDecimal withdrawAns = new BigDecimal(10);
+		BigDecimal depositAns = new BigDecimal(90);
+		
+		assertTrue(withdrawAns.subtract(withdrawAccountBalance).compareTo(EPSILON) == -1);
+		assertTrue(depositAns.subtract(depositAccountBalance).compareTo(EPSILON) == -1);
+	}
+	
+	
+	
 //	@Test 
 //	void testSelectAccountThatDoesNotExist() {
 //

@@ -1,5 +1,6 @@
 package main;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +11,8 @@ public class HomeMenu extends Menu {
 	private final String CANCEL = "cancel";
 	private final String EXIT = "exit";
 	private final String SELECT = "selectaccount";
+	private final String DELETE = "deleteaccount";
+	private final String TRANSFER = "transfer";
 
 	private Person person;
 
@@ -39,9 +42,15 @@ public class HomeMenu extends Menu {
 			case SELECT:
 				selectAccountHandler(scanner);
 				break;
+			case DELETE:
+				deleteAccountHandler(scanner);
+				break;
+			case TRANSFER:
+				transferHandler(scanner);
+				break;
 			default:
 				System.out.println("Command not recognized. Acceptable commands are: " + NEW_ACCOUNT + ", " + SELECT
-						+ ", " + EXIT);
+						+ ", " + DELETE + ", " +TRANSFER+", "+ EXIT);
 
 			}
 		}
@@ -126,6 +135,126 @@ public class HomeMenu extends Menu {
 			}
 		}
 		return -1;
+	}
+	
+	/**
+	 * Handles deleting an account
+	 * @param scanner
+	 */
+	private void deleteAccountHandler(Scanner scanner) {
+		String input;
+		boolean success = false;
+		do {
+			System.out.println("Available accounts are: ");
+
+			for (Account acc : person.getAccounts()) {
+				System.out.print(acc + " ");
+			}
+
+			System.out.println("");
+			System.out.println("Enter account name to delete, or type cancel to return");
+			
+			input = scanner.next();
+			int index = findAccount(input);
+			if (input.toLowerCase().equals(CANCEL)) {
+				success = true;
+				return;
+			}
+			else if (index == -1) {
+				System.out.println("Error, account \"" + input + "\" not found");
+			}
+			else {
+				if(person.removeAccount(index, input)) {
+					success = true;
+				}
+				else {
+					System.out.println("Error: Account balance must be equal to 0 prior to removing it.");
+				}
+			}
+		} while( success == false);
+		
+		System.out.println(input + " removed successfully!");
+	}
+	
+	/**
+	 * Handles logic for transferring money between accounts
+	 * @param scanner
+	 */
+	private void transferHandler(Scanner scanner) {
+		List<Account> accounts = this.person.getAccounts();
+		
+		//can't transfer money if theres less than 2 accounts
+		if(accounts.size() < 2) {
+			System.out.println("Error: Cannot transfer money, less than 2 acounts exist");
+			return;
+		}
+		
+		int withdrawAccountIndex = -1;
+		String withdrawAccountName;
+		int depositAccountIndex = -1;
+		String depositAccountName;
+		
+//		prompt for name until a valid account is found or until user cancels
+		while(withdrawAccountIndex == -1) {
+			System.out.println("Enter the account name to send money from, or 'cancel' to cancel the transfer:");
+			withdrawAccountName = scanner.next();
+			
+			if(withdrawAccountName.equals(CANCEL)) {
+				System.out.println("Transfer cancelled.");
+				return;
+			}
+			
+			withdrawAccountIndex = findAccount(withdrawAccountName);
+		}
+		
+		//		prompt for name until a valid account is found or until user cancels
+		while(depositAccountIndex == -1) {
+			System.out.println("Enter the account name to transfer money to, or 'cancel' to cancel the transfer:");
+			depositAccountName = scanner.next();
+			
+			if(depositAccountName.equals(CANCEL)) {
+				System.out.println("Transfer cancelled.");
+				return;
+			}
+			
+			depositAccountIndex = findAccount(depositAccountName);
+		}
+		
+		Account withdrawAccount = accounts.get(withdrawAccountIndex);
+		Account depositAccount = accounts.get(depositAccountIndex);
+		
+		//check for transferring to the same account
+		if(withdrawAccount.getAccountName().equals(depositAccount.getAccountName())) {
+			System.out.println("Attempted to transfer money to same account, transfer cancelled");
+			return;
+		}
+		
+		BigDecimal transferAmount = new BigDecimal(0.0);
+		
+		//check to make sure theres enough money to transfer
+		while(transferAmount.doubleValue() <= 0.0) {
+			System.out.println("Enter the amount of money to transfer (greater than $0)");
+			
+			transferAmount = scanner.nextBigDecimal();
+			
+			//case where transferAmount is > the withdraw account's balance
+			if(withdrawAccount.getBalance().compareTo(transferAmount) ==- 1) {
+				System.out.println("Error: transfer amount greater than account balance, transfer cancelled");
+				return;
+			}
+			
+		}
+		
+		System.out.println("Transferring $"+ transferAmount.toString() + " from " + withdrawAccount.getAccountName() + " to "
+				+ depositAccount.getAccountName());
+		
+		withdrawAccount.withdraw(transferAmount);
+		depositAccount.deposit(transferAmount);
+		
+		System.out.println("Transfer success");
+		
+		
+		
 	}
 
 }
