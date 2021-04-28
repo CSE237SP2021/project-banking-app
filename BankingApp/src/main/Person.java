@@ -91,6 +91,13 @@ public class Person {
 		return accounts.add(account);
 	}
 	
+	/**
+	 * code to traverse folder and delete entries borrowed from https://stackoverflow.com/questions/20281835/how-to-delete-a-folder-with-files-using-java
+	 * 
+	 * @param index
+	 * @param accountName
+	 * @return true if account removed successfully, false if not
+	 */
 	public boolean removeAccount(int index, String accountName) {
 		if(this.accounts.get(index) != null) {
 			Account accountToRemove = this.accounts.get(index);
