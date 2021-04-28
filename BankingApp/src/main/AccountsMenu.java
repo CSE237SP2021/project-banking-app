@@ -11,6 +11,7 @@ public class AccountsMenu extends Menu {
 	private final String EXIT = "exit";
 	private final String BALANCE = "balance";
 	private final String TRANLIST = "transactions";
+	private final String TRANSFERUSER = "transferuser";
 	
 	Account account;
 	
@@ -42,8 +43,10 @@ public class AccountsMenu extends Menu {
 					balanceHandler();
 					break;
 				case TRANLIST:
-					transactionListHandler();
+					transactionListHandler(scanner);
 					break;
+				case TRANSFERUSER:
+					transferUserHandler();
 				case EXIT:
 					System.out.println("Exiting from " + this.account.getAccountName() + ", returning to home menu");
 					break mainLoop; //https://stackoverflow.com/questions/22823395/java-how-can-i-break-a-while-loop-under-a-switch-statement
@@ -52,6 +55,30 @@ public class AccountsMenu extends Menu {
 			}
 		}
 		
+	}
+	
+	/**
+	 * 
+	 */
+	private void transferUserHandler(Scanner scanner) {
+		System.out.println("Enter username of user to transfer to (or cancel to quit): ");
+		String userInput = scanner.next().toString();
+		while(!Transfer.checkIfAccountExists(userInput) && !userInput.equals("cancel")) {
+			System.out.println("Error: User not found. Try again or type 'cancel' to exit: ");
+			userInput = scanner.next().toString();
+		}
+		
+		if(Transfer.checkIfAccountExists(userInput)) {
+			System.out.print("Enter amount to transfer to " + userInput + ": ");
+			BigDecimal transferAmount = this.inputBigDecimal(scanner);
+			BigDecimal newAccountBalance = this.account.transfer(transferAmount);
+		}
+		else {
+			
+		}
+
+		
+		System.out.println("Your account now has a balance of: $" + newAccountBalance);
 	}
 	
 	/**

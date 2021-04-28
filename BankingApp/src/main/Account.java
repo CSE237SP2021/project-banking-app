@@ -64,6 +64,22 @@ public class Account {
         return this.balance;
     }
     
+    public BigDecimal transfer(BigDecimal transferAmount, String account) {
+    	if(transferAmount.compareTo(new BigDecimal(0)) > 0) {
+    		if(Transfer.checkIfAccountExists(account)) {
+    			Transfer.transferToUser(BigDecimal transferAmount, String account)
+    			
+    			
+    			this.balance.subtract(transferAmount);
+    		}
+    		else {
+    			return this.balance;
+    		}
+    		
+    	}
+    	return this.balance;
+    }
+    
     public BigDecimal getBalance() {
     	return this.balance;
     }
