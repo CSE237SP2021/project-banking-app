@@ -1,5 +1,6 @@
 package main;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +12,7 @@ public class HomeMenu extends Menu {
 	private final String EXIT = "exit";
 	private final String SELECT = "selectaccount";
 	private final String DELETE = "deleteaccount";
+	private final String TRANSFER = "transfer";
 
 	private Person person;
 
@@ -43,9 +45,12 @@ public class HomeMenu extends Menu {
 			case DELETE:
 				deleteAccountHandler(scanner);
 				break;
+			case TRANSFER:
+				transferHandler(scanner);
+				break;
 			default:
 				System.out.println("Command not recognized. Acceptable commands are: " + NEW_ACCOUNT + ", " + SELECT
-						+ ", " + DELETE + ", " + EXIT);
+						+ ", " + DELETE + ", " +TRANSFER+", "+ EXIT);
 
 			}
 		}
@@ -169,6 +174,82 @@ public class HomeMenu extends Menu {
 		} while( success == false);
 		
 		System.out.println(input + " removed successfully!");
+	}
+	
+	/**
+	 * Handles logic for transferring money between accounts
+	 * @param scanner
+	 */
+	private void transferHandler(Scanner scanner) {
+		List<Account> accounts = this.person.getAccounts();
+		
+		if(accounts.size() < 2) {
+			System.out.println("Error: Cannot transfer money, less than 2 acounts exist");
+			return;
+		}
+		
+		int withdrawAccountIndex = -1;
+		String withdrawAccountName;
+		int depositAccountIndex = -1;
+		String depositAccountName;
+		
+		while(withdrawAccountIndex == -1) {
+			System.out.println("Enter the account name to send money from, or 'cancel' to cancel the transfer:");
+			withdrawAccountName = scanner.next();
+			
+			if(withdrawAccountName.equals(CANCEL)) {
+				System.out.println("Transfer cancelled.");
+				return;
+			}
+			
+			withdrawAccountIndex = findAccount(withdrawAccountName);
+		}
+		
+		while(depositAccountIndex == -1) {
+			System.out.println("Enter the account name to transfer money to, or 'cancel' to cancel the transfer:");
+			depositAccountName = scanner.next();
+			
+			if(depositAccountName.equals(CANCEL)) {
+				System.out.println("Transfer cancelled.");
+				return;
+			}
+			
+			depositAccountIndex = findAccount(depositAccountName);
+		}
+		
+		Account withdrawAccount = accounts.get(withdrawAccountIndex);
+		Account depositAccount = accounts.get(depositAccountIndex);
+		
+		if(withdrawAccount.getAccountName().equals(depositAccount.getAccountName())) {
+			System.out.println("Attempted to transfer money to same account, transfer cancelled");
+			return;
+		}
+		
+		BigDecimal transferAmount = new BigDecimal(0.0);
+		
+		while(transferAmount.doubleValue() <= 0.0) {
+			System.out.println("Enter the amount of money to transfer (greater than $0)");
+			
+			transferAmount = scanner.nextBigDecimal();
+			
+			//case where transferAmount is > the withdraw account's balance
+			if(withdrawAccount.getBalance().compareTo(transferAmount) ==- 1) {
+				System.out.println("Error: transfer amount greater than account balance, transfer cancelled");
+				return;
+			}
+			
+		}
+		
+		System.out.println("Transferring $"+ transferAmount.toString() + " from " + withdrawAccount.getAccountName() + " to "
+				+ depositAccount.getAccountName());
+		
+		withdrawAccount.withdraw(transferAmount);
+		depositAccount.deposit(transferAmount);
+		
+		System.out.println("Transfer success");
+		
+		
+		
 	}
 
 }
