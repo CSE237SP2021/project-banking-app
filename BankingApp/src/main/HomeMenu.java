@@ -132,6 +132,10 @@ public class HomeMenu extends Menu {
 		return -1;
 	}
 	
+	/**
+	 * Handles deleting an account
+	 * @param scanner
+	 */
 	private void deleteAccountHandler(Scanner scanner) {
 		String input;
 		boolean success = false;
