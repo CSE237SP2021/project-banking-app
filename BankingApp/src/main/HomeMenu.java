@@ -10,6 +10,7 @@ public class HomeMenu extends Menu {
 	private final String CANCEL = "cancel";
 	private final String EXIT = "exit";
 	private final String SELECT = "selectaccount";
+	private final String DELETE = "deleteaccount";
 
 	private Person person;
 
@@ -39,9 +40,12 @@ public class HomeMenu extends Menu {
 			case SELECT:
 				selectAccountHandler(scanner);
 				break;
+			case DELETE:
+				deleteAccountHandler(scanner);
+				break;
 			default:
 				System.out.println("Command not recognized. Acceptable commands are: " + NEW_ACCOUNT + ", " + SELECT
-						+ ", " + EXIT);
+						+ ", " + DELETE + ", " + EXIT);
 
 			}
 		}
@@ -126,6 +130,45 @@ public class HomeMenu extends Menu {
 			}
 		}
 		return -1;
+	}
+	
+	/**
+	 * Handles deleting an account
+	 * @param scanner
+	 */
+	private void deleteAccountHandler(Scanner scanner) {
+		String input;
+		boolean success = false;
+		do {
+			System.out.println("Available accounts are: ");
+
+			for (Account acc : person.getAccounts()) {
+				System.out.print(acc + " ");
+			}
+
+			System.out.println("");
+			System.out.println("Enter account name to delete, or type cancel to return");
+			
+			input = scanner.next();
+			int index = findAccount(input);
+			if (input.toLowerCase().equals(CANCEL)) {
+				success = true;
+				return;
+			}
+			else if (index == -1) {
+				System.out.println("Error, account \"" + input + "\" not found");
+			}
+			else {
+				if(person.removeAccount(index, input)) {
+					success = true;
+				}
+				else {
+					System.out.println("Error: Account balance must be equal to 0 prior to removing it.");
+				}
+			}
+		} while( success == false);
+		
+		System.out.println(input + " removed successfully!");
 	}
 
 }
