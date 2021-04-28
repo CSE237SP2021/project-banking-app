@@ -3,6 +3,7 @@ package main;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Person {
@@ -89,6 +90,39 @@ public class Person {
 	public boolean addAccount(Account account) {
 		return accounts.add(account);
 	}
+	
+	public boolean removeAccount(int index, String accountName) {
+		if(this.accounts.get(index) != null) {
+			Account accountToRemove = this.accounts.get(index);
+			if(accountToRemove.getBalance().compareTo(new BigDecimal(0)) == 0) {	
+				String userDirectoryPath = Auth.BASE_PATH + id;
+				String accountFolderPath = userDirectoryPath + "/" + accountName;
+				
+				try {
+					File accountFolder = new File(accountFolderPath);
+					String[] accountEntries = accountFolder.list();
+					for(String s : accountEntries) {
+						File currentData = new File(accountFolder.getPath(),s);
+						currentData.delete();
+					}
+					
+					accountFolder.delete();
+					this.accounts.remove(index);
+					return true;
+				} catch(Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+
+			}
+			else {
+				return false; //balance is not zero, cannot remove account
+			}
+		}
+		else {
+			return false;
+		}
+ 	}
 
 	/**
 	 * accounts ArrayList getter
