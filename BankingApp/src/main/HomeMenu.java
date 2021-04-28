@@ -183,6 +183,7 @@ public class HomeMenu extends Menu {
 	private void transferHandler(Scanner scanner) {
 		List<Account> accounts = this.person.getAccounts();
 		
+		//can't transfer money if theres less than 2 accounts
 		if(accounts.size() < 2) {
 			System.out.println("Error: Cannot transfer money, less than 2 acounts exist");
 			return;
@@ -193,6 +194,7 @@ public class HomeMenu extends Menu {
 		int depositAccountIndex = -1;
 		String depositAccountName;
 		
+//		prompt for name until a valid account is found or until user cancels
 		while(withdrawAccountIndex == -1) {
 			System.out.println("Enter the account name to send money from, or 'cancel' to cancel the transfer:");
 			withdrawAccountName = scanner.next();
@@ -205,6 +207,7 @@ public class HomeMenu extends Menu {
 			withdrawAccountIndex = findAccount(withdrawAccountName);
 		}
 		
+		//		prompt for name until a valid account is found or until user cancels
 		while(depositAccountIndex == -1) {
 			System.out.println("Enter the account name to transfer money to, or 'cancel' to cancel the transfer:");
 			depositAccountName = scanner.next();
@@ -220,6 +223,7 @@ public class HomeMenu extends Menu {
 		Account withdrawAccount = accounts.get(withdrawAccountIndex);
 		Account depositAccount = accounts.get(depositAccountIndex);
 		
+		//check for transferring to the same account
 		if(withdrawAccount.getAccountName().equals(depositAccount.getAccountName())) {
 			System.out.println("Attempted to transfer money to same account, transfer cancelled");
 			return;
@@ -227,6 +231,7 @@ public class HomeMenu extends Menu {
 		
 		BigDecimal transferAmount = new BigDecimal(0.0);
 		
+		//check to make sure theres enough money to transfer
 		while(transferAmount.doubleValue() <= 0.0) {
 			System.out.println("Enter the amount of money to transfer (greater than $0)");
 			
